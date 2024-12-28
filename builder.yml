@@ -1,0 +1,23 @@
+apiVersion: v1
+kind: Pod
+spec:
+  containers:
+  - name: kaniko
+    image: gcr.io/kaniko-project/executor:debug
+    command:
+    - sleep
+    args:
+    - 9999999  
+    volumeMounts:
+    - name: kaniko-cfg
+      mountPath: /kaniko/.docker
+  volumes:
+  - name: kaniko-cfg
+    projected:
+      sources:
+        - secret:
+          name: registry-secret
+          items:
+            key: .dockerconfigjson
+            path: config.json
+
