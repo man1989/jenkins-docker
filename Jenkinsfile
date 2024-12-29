@@ -22,7 +22,7 @@ pipeline{
                 sh "cat manifest.json"
             }
         }        
-        stage("Build and Push image"){
+        stage("Build and Push Image"){
             steps{
                 container("kaniko"){
                     sh "echo ${env.APP_VERSION}"
@@ -42,6 +42,11 @@ pipeline{
                     """
                 }
             }
+        }
+    }
+    post{
+        always{
+            cleanWs()
         }
     }
 }
