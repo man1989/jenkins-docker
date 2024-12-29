@@ -36,8 +36,9 @@ pipeline{
                     sh """
                         git config user.name "Jenkins"
                         git config user.email "jenkins@innolab.in"
-                        git add manifest.json
-                        git commit -m 'version updated'
+                        git add server/package.json
+                        git add ui/package.json
+                        git commit -m 'Jenkins: Build#${BUILD_NUMBER} ${env.APP_VERSION} [skip ci]'
                         git push origin git-update
                     """
                 }
